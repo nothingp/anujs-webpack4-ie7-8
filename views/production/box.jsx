@@ -9,7 +9,7 @@ export default class Box extends React.PureComponent {
     render() {
         return (
             <div style={{ width: 400, height: 400 }}>
-                <DifferentParent />
+                11111
             </div>
         );
     }
