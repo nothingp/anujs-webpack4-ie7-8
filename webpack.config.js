@@ -46,15 +46,16 @@ module.exports = {
                             'react',
                             'stage-2',
                         ],
-                        plugins: ['transform-runtime','transform-decorators-legacy'],
+                        plugins: [['antd', {
+                            style: true,  // if true, use less
+                        }],'transform-runtime','transform-decorators-legacy'],
                     },
                 },
                 include: [path.resolve(__dirname, 'views')],
             },
             {
-                test: /\.css$/,
-                include: [path.resolve(__dirname, 'views')],
-                use: ['style-loader', 'css-loade'],
+                test: /\.(less|css)$/,
+                use:[ 'style-loader','css-loader?modules','less-loader'],
             },
             {
                 test: /\.(eot|woff|woff2|ttf|svg|png|jpg|gif)$/,

@@ -1,21 +1,26 @@
-import { createActions, handleActions,combineActions } from 'redux-actions';
+const COUNTER_INCREMENT = 'INCREMENT';
+const COUNTER_DECREMENT = 'DECREMENT';
 
-const defaultState = { counter: 10 };
 
-const { increment, decrement } = createActions({
-    INCREMENT: (amount = 1) => ({ amount }),
-    DECREMENT: (amount = 1) => ({ amount: -amount })
+
+export const increment = ({num}) => ({
+    type: COUNTER_INCREMENT,
+    num:num
+});
+export const decrement = () => ({
+    type: COUNTER_DECREMENT,
 });
 
-const reducer = handleActions(
-    {
-        [combineActions(increment, decrement)]: (
-            state
-        ) => {
-            return { ...state, counter: state.counter + 1 };
-        }
-    },
-    defaultState
-);
+export default (state = 0, action) => {
+    console.log("action",action)
+    switch (action.type) {
+        case COUNTER_INCREMENT:
+            return state + action.num;
+        case COUNTER_DECREMENT:
+            return state - 1;
+        default:
+            return state;
+    }
+};
 
-export default reducer;
+export const getCounter = state => state.counter;

@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
-import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 import 'core-js';
 import Box from './box';
 import ErrorBoundary from './errorBoundary';
@@ -15,8 +14,7 @@ import StuReactRedux from './stu';
 
 const store = createStore(
     combineReducers({
-        ...{counter:reducer},
-        routing: routerReducer
+        ...{counter:reducer}
     })
 )
 
