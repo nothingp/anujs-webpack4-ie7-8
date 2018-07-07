@@ -39,7 +39,7 @@ module.exports = {
                             'react',
                             'stage-2',
                         ],
-                        plugins: ['transform-runtime'],
+                        plugins: ['transform-runtime','transform-decorators-legacy'],
                     },
                 },
                 include: [path.resolve(__dirname, 'views')],

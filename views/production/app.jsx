@@ -11,7 +11,7 @@ import SelectBox from './selectBox';
 import WrapBox from './wrapBox';
 import { Router, Route, IndexRedirect, IndexRoute, Link, hashHistory  } from 'react-router';
 import reducer from './reducer';
-import StuReactRedux from './StuReactRedux';
+import StuReactRedux from './stu';
 
 const store = createStore(
     combineReducers({

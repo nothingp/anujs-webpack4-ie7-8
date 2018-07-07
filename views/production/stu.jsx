@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux'
+import {increment,decrement}  from  './reducer';
 
-
+@connect(
+    state=>state.counter,
+    dispatch=>bindActionCreators({increment,decrement},dispatch)
+)
 class Stu extends React.Component {
     render() {
         return (
@@ -13,7 +18,7 @@ class Stu extends React.Component {
     }
 
     add(){
-        this.props.ADD_NUM();
+        this.props.increment();
     }
 
     componentDidMount() {
