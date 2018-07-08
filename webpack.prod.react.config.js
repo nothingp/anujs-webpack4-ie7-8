@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
@@ -56,7 +57,12 @@ module.exports = {
             },
             {
                 test: /\.(less|css)$/,
-                use:[ 'style-loader','css-loader','less-loader'],
+                use: [MiniCssExtractPlugin.loader, {
+                    loader: 'css-loader?importLoaders=1',
+                    // options: {
+                    //     minimize: true //css压缩
+                    // }
+                }, {loader: 'less-loader', options: {javascriptEnabled: true}}]
             },
             {
                 test: /\.(eot|woff|woff2|ttf|svg|png|jpg|gif)$/,

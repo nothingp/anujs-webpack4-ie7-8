@@ -3,7 +3,7 @@ const COUNTER_DECREMENT = 'DECREMENT';
 
 
 
-export const increment = ({num}) => ({
+export const increment = ({num=1}) => ({
     type: COUNTER_INCREMENT,
     num:num
 });

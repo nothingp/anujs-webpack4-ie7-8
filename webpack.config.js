@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const es3ifyPlugin = require('es3ify-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -15,7 +16,7 @@ module.exports = {
         chunkFilename: 'js/[name].js',
     },
     resolve: {
-        extensions: ['.js', '.json', '.jsx'],
+        extensions: ['.js', '.json', '.jsx','.less', '.css'],
         alias: {
             react: 'anujs/dist/ReactIE.js',
             'react-dom': 'anujs/dist/ReactIE.js',
@@ -51,11 +52,16 @@ module.exports = {
                         }],'transform-runtime','transform-decorators-legacy'],
                     },
                 },
-                include: [path.resolve(__dirname, 'views')],
+                exclude: /(node_modules)/
             },
             {
                 test: /\.(less|css)$/,
-                use:[ 'style-loader','css-loader?modules','less-loader'],
+                use: [MiniCssExtractPlugin.loader, {
+                    loader: 'css-loader?importLoaders=1',
+                    // options: {
+                    //     minimize: true //css压缩
+                    // }
+                }, {loader: 'less-loader', options: {javascriptEnabled: true}}]
             },
             {
                 test: /\.(eot|woff|woff2|ttf|svg|png|jpg|gif)$/,
@@ -74,6 +80,10 @@ module.exports = {
     mode: 'development',
     plugins: [
         new es3ifyPlugin(),
+        new MiniCssExtractPlugin({
+            filename: "[name].[hash].css",
+            chunkFilename: "[id].css"
+        }),
         new HtmlWebpackPlugin({
             filename: 'production.html',
             template: path.resolve(__dirname, './views/production/index.ejs'),

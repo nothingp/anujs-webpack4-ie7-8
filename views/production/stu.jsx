@@ -15,12 +15,12 @@ class Stu extends React.Component {
                 <Button type="ghost">Ghost</Button>
                 <Button type="dashed">Dashed</Button>
                 <div>状态机num值：{this.props.counter}</div>
-                <button className={styles.btnTest} onClick={this.add.bind(this)}>状态机num值+1</button>
+                <button className={"btnTest"} onClick={this.add.bind(this)}>状态机num值+1</button>
             </div>
         );
     }
 
-    add(){
+    add=()=>{
         this.props.increment({num:2});
     }
 

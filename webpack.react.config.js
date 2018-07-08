@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const es3ifyPlugin = require('es3ify-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -46,7 +47,12 @@ module.exports = {
             },
             {
                 test: /\.(less|css)$/,
-                use:[ 'style-loader','css-loader','less-loader'],
+                use: [MiniCssExtractPlugin.loader, {
+                    loader: 'css-loader?importLoaders=1',
+                    // options: {
+                    //     minimize: true //css压缩
+                    // }
+                }, {loader: 'less-loader', options: {javascriptEnabled: true}}]
             },
             {
                 test: /\.(eot|woff|woff2|ttf|svg|png|jpg|gif)$/,
