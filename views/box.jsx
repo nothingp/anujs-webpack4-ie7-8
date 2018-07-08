@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-import DifferentParent from './differentParent';
+import BaseComponent from 'components/BaseComponent';
 
-export default class Box extends React.Component {
+export default class Box extends BaseComponent {
     componentDidMount() {
         console.log('box componentDidMount trigger');
     }

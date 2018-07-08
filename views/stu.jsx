@@ -4,9 +4,10 @@ import {bindActionCreators} from 'redux'
 import {increment,decrement}  from  './reducer';
 import CqButton from 'components/CqButton';
 import styles from './stu.less'
+import BaseComponent from 'components/BaseComponent';
 
 
-class Stu extends React.Component {
+class Stu extends BaseComponent {
     render() {
         return (
             <div>
