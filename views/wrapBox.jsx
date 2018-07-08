@@ -1,5 +1,5 @@
 import React from 'react';
-import InnerBox from './innerBox';
+import InnerBox from 'views/innerBox';
 
 class WrapBox extends React.PureComponent {
     state = {

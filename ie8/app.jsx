@@ -3,14 +3,14 @@ import ReactDOM from 'react-dom';
 import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import 'core-js';
-import Box from './box';
-import ErrorBoundary from './errorBoundary';
-import ErrorComp from './errorComp';
-import SelectBox from './selectBox';
-import WrapBox from './wrapBox';
+import Box from 'views/box';
+import ErrorBoundary from 'views/errorBoundary';
+import ErrorComp from 'views/errorComp';
+import SelectBox from 'views/selectBox';
+import WrapBox from 'views/wrapBox';
 import { Router, Route, IndexRedirect, IndexRoute, Link, hashHistory  } from 'react-router';
-import reducer from './reducer';
-import StuReactRedux from './stu';
+import reducer from 'views/reducer';
+import StuReactRedux from 'views/stu';
 
 const store = createStore(
     combineReducers({

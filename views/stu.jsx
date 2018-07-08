@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux'
 import {increment,decrement}  from  './reducer';
-import CqButton from 'CqComp/CqButton';
+import CqButton from 'components/CqButton';
 import styles from './stu.less'
 
 
@@ -30,13 +30,13 @@ class Stu extends React.Component {
 
 }
 
-// 哪些 Redux 全局的 state 是我们组件想要通过 props 获取的？
+// 加载redux的store
 function mapStateToProps(state) {
     console.log('123213',state)
     return state
 }
 
-// 哪些 action 创建函数是我们想要通过 props 获取的？
+// 注入action
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({increment,decrement},dispatch);
 }

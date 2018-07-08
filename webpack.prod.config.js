@@ -8,7 +8,7 @@ const theme = require('./theme');
 module.exports = {
     devtool: 'cheap-module-source-map',
     entry: {
-        production: path.resolve(__dirname, './views/production/app.jsx'),
+        production: path.resolve(__dirname, './ie8/app.jsx'),
     },
     output: {
         path: path.resolve(__dirname, 'devtmp'),
@@ -24,7 +24,8 @@ module.exports = {
             'prop-types': 'anujs/lib/ReactPropTypes',
             devtools: 'anujs/lib/devtools',
             'create-react-class': 'anujs/lib/createClass',
-            'CqComp': path.join(__dirname, "./components_ie"),
+            'components': path.join(__dirname, "./ie8/components"),
+            'views': path.join(__dirname, "./views"),
         },
     },
     module: {
@@ -90,7 +91,7 @@ module.exports = {
         }),
         new HtmlWebpackPlugin({
             filename: 'production.html',
-            template: path.resolve(__dirname, './views/production/index.ejs'),
+            template: path.resolve(__dirname, './views/index.ejs'),
             inject: 'body',
             hase: false,
             minify: {

@@ -8,7 +8,7 @@ const theme = require('./theme');
 module.exports = {
     devtool: 'cheap-module-source-map',
     entry: {
-        production: path.resolve(__dirname, './views/production/app.jsx'),
+        production: path.resolve(__dirname, './new/app.jsx'),
     },
     output: {
         path: path.resolve(__dirname, 'devtmp'),
@@ -19,7 +19,8 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.json', '.jsx'],
         alias: {
-            'CqComp': path.join(__dirname, "./components"),
+            'components': path.join(__dirname, "./new/components"),
+            'views': path.join(__dirname, "./views"),
         },
     },
     module: {
@@ -84,7 +85,7 @@ module.exports = {
         }),
         new HtmlWebpackPlugin({
             filename: 'production.html',
-            template: path.resolve(__dirname, './views/production/index.ejs'),
+            template: path.resolve(__dirname, './views/index.ejs'),
             inject: 'body',
             hase: false,
             minify: {
