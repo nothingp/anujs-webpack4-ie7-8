@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const es3ifyPlugin = require('es3ify-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const theme = require('./theme');
 
 module.exports = {
     devtool: 'cheap-module-source-map',
@@ -17,6 +18,9 @@ module.exports = {
     },
     resolve: {
         extensions: ['.js', '.json', '.jsx'],
+        alias: {
+            'CqComp': path.join(__dirname, "./components"),
+        },
     },
     module: {
         rules: [
@@ -40,10 +44,12 @@ module.exports = {
                             'react',
                             'stage-2',
                         ],
-                        plugins: ['transform-runtime','transform-decorators-legacy'],
+                        plugins: [['antd', {
+                            style: true,  // if true, use less
+                        }],'transform-runtime','transform-decorators-legacy'],
                     },
                 },
-                include: [path.resolve(__dirname, 'views')],
+                exclude: /(node_modules)/
             },
             {
                 test: /\.(less|css)$/,
@@ -52,7 +58,9 @@ module.exports = {
                     // options: {
                     //     minimize: true //css压缩
                     // }
-                }, {loader: 'less-loader', options: {javascriptEnabled: true}}]
+                }, {loader: 'less-loader', options: {
+                        javascriptEnabled: true, sourceMap: true, modifyVars: theme()
+                    }}]
             },
             {
                 test: /\.(eot|woff|woff2|ttf|svg|png|jpg|gif)$/,
@@ -70,7 +78,10 @@ module.exports = {
     },
     mode: 'development',
     plugins: [
-        new es3ifyPlugin(),
+        new MiniCssExtractPlugin({
+            filename: "[name].[hash].css",
+            chunkFilename: "[id].css"
+        }),
         new HtmlWebpackPlugin({
             filename: 'production.html',
             template: path.resolve(__dirname, './views/production/index.ejs'),

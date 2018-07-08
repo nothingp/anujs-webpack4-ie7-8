@@ -1,39 +1,31 @@
 const path = require('path');
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const es3ifyPlugin = require('es3ify-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const theme = require('./theme');
 
 module.exports = {
-    devtool: 'source-map',
+    devtool: 'cheap-module-source-map',
     entry: {
         production: path.resolve(__dirname, './views/production/app.jsx'),
     },
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, 'devtmp'),
         filename: 'js/[name].js',
         publicPath: '/',
         chunkFilename: 'js/[name].js',
     },
     resolve: {
-        extensions: ['.js', '.json', '.jsx'],
+        extensions: ['.js', '.json', '.jsx','.less', '.css'],
         alias: {
             react: 'anujs/dist/ReactIE.js',
             'react-dom': 'anujs/dist/ReactIE.js',
             'prop-types': 'anujs/lib/ReactPropTypes',
             devtools: 'anujs/lib/devtools',
             'create-react-class': 'anujs/lib/createClass',
+            'CqComp': path.join(__dirname, "./components_ie"),
         },
-    },
-    optimization: {
-        minimizer: [
-            new UglifyJsPlugin({
-                uglifyOptions: {
-                    ie8: true,
-                },
-                sourceMap: true,
-            }),
-        ],
     },
     module: {
         rules: [
@@ -57,10 +49,12 @@ module.exports = {
                             'react',
                             'stage-2',
                         ],
-                        plugins: ['transform-runtime','transform-decorators-legacy'],
+                        plugins: [['antd', {
+                            style: true,  // if true, use less
+                        }],'transform-runtime','transform-decorators-legacy'],
                     },
                 },
-                include: [path.resolve(__dirname, 'views')],
+                exclude: /(node_modules)/
             },
             {
                 test: /\.(less|css)$/,
@@ -69,7 +63,9 @@ module.exports = {
                     // options: {
                     //     minimize: true //css压缩
                     // }
-                }, {loader: 'less-loader', options: {javascriptEnabled: true}}]
+                }, {loader: 'less-loader', options: {
+                        javascriptEnabled: true, sourceMap: true, modifyVars: theme()
+                    }}]
             },
             {
                 test: /\.(eot|woff|woff2|ttf|svg|png|jpg|gif)$/,
@@ -87,6 +83,11 @@ module.exports = {
     },
     mode: 'production',
     plugins: [
+        new es3ifyPlugin(),
+        new MiniCssExtractPlugin({
+            filename: "[name].[hash].css",
+            chunkFilename: "[id].css"
+        }),
         new HtmlWebpackPlugin({
             filename: 'production.html',
             template: path.resolve(__dirname, './views/production/index.ejs'),

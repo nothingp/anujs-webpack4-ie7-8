@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const es3ifyPlugin = require('es3ify-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const theme = require('./theme');
 
 module.exports = {
     devtool: 'cheap-module-source-map',
@@ -23,6 +24,7 @@ module.exports = {
             'prop-types': 'anujs/lib/ReactPropTypes',
             devtools: 'anujs/lib/devtools',
             'create-react-class': 'anujs/lib/createClass',
+            'CqComp': path.join(__dirname, "./components_ie"),
         },
     },
     module: {
@@ -61,7 +63,9 @@ module.exports = {
                     // options: {
                     //     minimize: true //css压缩
                     // }
-                }, {loader: 'less-loader', options: {javascriptEnabled: true}}]
+                }, {loader: 'less-loader', options: {
+                    javascriptEnabled: true, sourceMap: true, modifyVars: theme()
+                }}]
             },
             {
                 test: /\.(eot|woff|woff2|ttf|svg|png|jpg|gif)$/,

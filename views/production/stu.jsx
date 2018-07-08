@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux'
 import {increment,decrement}  from  './reducer';
-import { Button } from 'antd';
+import CqButton from 'CqComp/CqButton';
 import styles from './stu.less'
 
 
@@ -10,12 +10,12 @@ class Stu extends React.Component {
     render() {
         return (
             <div>
-                <Button type="primary">Primary</Button>
-                <Button>Default</Button>
-                <Button type="ghost">Ghost</Button>
-                <Button type="dashed">Dashed</Button>
+                <CqButton type="primary">Primary</CqButton>
+                <CqButton>Default</CqButton>
+                <CqButton type="ghost">Ghost</CqButton>
+                <CqButton type="dashed">Dashed</CqButton>
                 <div>状态机num值：{this.props.counter}</div>
-                <button className={"btnTest"} onClick={this.add.bind(this)}>状态机num值+1</button>
+                <button className={"btnTest"} onClick={this.add}>状态机num值+1</button>
             </div>
         );
     }
