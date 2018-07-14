@@ -18,6 +18,7 @@ module.exports = {
     },
     resolve: {
         extensions: ['.js', '.json', '.jsx','.less', '.css'],
+        mainFields: ['browser',  'main'],
         alias: {
             react: 'anujs/dist/ReactIE.js',
             'react-dom': 'anujs/dist/ReactIE.js',
@@ -80,6 +81,11 @@ module.exports = {
                     },
                 ],
             },
+            {
+                test: /\.jsx?$/,
+                enforce: "post",
+                loader: "es3ify-loader"
+            }
         ],
     },
     mode: 'development',
